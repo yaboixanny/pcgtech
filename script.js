@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.style.transform = 'scale(0.9)';
             
             const callerState = document.querySelector('.card-header span');
-            if(callerState) callerState.innerText = 'Call Connected';
+            if(callerState) callerState.innerText = 'Opportunity Engaged';
             
             const pulseDot = document.querySelector('.pulse-dot');
             if(pulseDot) {
