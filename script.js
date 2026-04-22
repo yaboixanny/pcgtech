@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Form submission (simulated)
+    // 5. Form submission (Netlify AJAX)
     const leadForm = document.getElementById('lead-form');
     if (leadForm) {
         leadForm.addEventListener('submit', (e) => {
@@ -96,7 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.style.opacity = '0.8';
             btn.disabled = true;
             
-            setTimeout(() => {
+            const formData = new FormData(leadForm);
+            
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
                 btn.innerText = 'Strategy Session Booked! ✓';
                 btn.style.backgroundColor = 'var(--clr-accent)';
                 btn.style.backgroundImage = 'none';
@@ -109,7 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.style.opacity = '1';
                     btn.disabled = false;
                 }, 3000);
-            }, 1500);
+            })
+            .catch((error) => {
+                alert("There was an error submitting the form. Please try again.");
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            });
         });
     }
 
