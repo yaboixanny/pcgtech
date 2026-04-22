@@ -107,8 +107,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.innerText = 'Strategy Session Booked! ✓';
                 btn.style.backgroundColor = 'var(--clr-accent)';
                 btn.style.backgroundImage = 'none';
+                
+                // Show Thank You Modal
+                const modal = document.getElementById('thank-you-modal');
+                const countdownEl = document.getElementById('countdown');
+                const progressBar = document.getElementById('redirect-progress');
+                
+                if (modal) {
+                    modal.classList.add('active');
+                    
+                    // Start progress bar animation
+                    setTimeout(() => {
+                        if (progressBar) progressBar.style.width = '100%';
+                    }, 100);
+
+                    // Start 10s countdown
+                    let secondsLeft = 10;
+                    const interval = setInterval(() => {
+                        secondsLeft--;
+                        if (countdownEl) countdownEl.innerText = secondsLeft;
+                        
+                        if (secondsLeft <= 0) {
+                            clearInterval(interval);
+                            window.location.href = 'https://pcgtech.com/about/';
+                        }
+                    }, 1000);
+                }
+
                 leadForm.reset();
                 
+                // Reset button after some time (optional since we're redirecting)
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.style.backgroundColor = '';
